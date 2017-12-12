@@ -6,7 +6,7 @@
 /*   By: maxisimo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 11:22:44 by maxisimo          #+#    #+#             */
-/*   Updated: 2017/12/12 14:01:23 by maxisimo         ###   ########.fr       */
+/*   Updated: 2017/12/12 17:28:34 by maxisimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,13 @@ int		counts(char *str)
 		i[3] = str[i[0]] == '#' ? i[3] + 1 : i[3];
 		i[4] = str[i[0]] == '\n' ? i[4] + 1 : i[4];
 	}
+	i[0] = 0;
 	while (i[0] < i[1])
 	{
 		if (!((i[2] == 12 * i[1]) && (i[3] == 4 * i[1]) && (i[4] == 5 * i[1]) &&
-					str[4 + i[0] * 21] == '\n' && str[9 + i[0] * 20] == '\n'
-					&& str[14 + i[0] * 20] == '\n' && str[19 + i[0] * 20]
-					== '\n' && str[20 + i[0] * 20] == '\n'))
+					str[5 + i[0] * 21] == '\n' && str[10 + i[0] * 21] == '\n'
+					&& str[15 + i[0] * 21] == '\n' && str[20 + i[0] * 21]
+					== '\n' && str[21 + i[0] * 21] == '\n'))
 			return (0);
 		i[0]++;
 	}
@@ -121,7 +122,7 @@ t_list	*read_tetri(int fd)
 
 	list = NULL;
 	lettre = 'A';
-	while ((count = read(fd, buf, 21)) == 21)
+	while ((count = read(fd, buf, 21)) >= 20)
 	{
 		tetris = get_piece(buf, lettre++);
 		if (counts(buf) != 1 || (tetris == NULL))

@@ -6,7 +6,7 @@
 /*   By: maxisimo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 15:09:49 by maxisimo          #+#    #+#             */
-/*   Updated: 2017/12/12 13:03:30 by maxisimo         ###   ########.fr       */
+/*   Updated: 2017/12/12 16:06:08 by maxisimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("usage: fillit input_file\n", 2);
+		ft_putstr("usage: fillit input_file\n");
 		return (1);
 	}
 	if ((list = read_tetri(open(argv[1], O_RDONLY))) == NULL)
 	{
-		ft_putstr_fd("error\n", 2);
+		ft_putstr("error\n");
 		return (1);
 	}
 	map = solve(list);
