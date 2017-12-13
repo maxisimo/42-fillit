@@ -1,0 +1,26 @@
+int		check_counts(char *str, int count)
+{
+	int i;
+	int blocs;
+
+	blocs = 0;
+	i = 0;
+	while (i < 20)
+	{
+		if (i % 5 < 4)
+		{
+			if (!(str[i] == '#' || str[i] == '.'))
+				return (1);
+			if (str[i] == '#' && ++blocs > 4)
+				return (2);
+		}
+		else if (str[i] != '\n')
+			return (3);
+		i++;
+	}
+	if (count == 21 && str[20] != '\n')
+		return (4);
+	if (!check_connection(str))
+		return (5);
+	return (0);
+}
