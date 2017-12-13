@@ -6,7 +6,7 @@
 /*   By: maxisimo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 11:22:44 by maxisimo          #+#    #+#             */
-/*   Updated: 2017/12/12 17:28:34 by maxisimo         ###   ########.fr       */
+/*   Updated: 2017/12/13 13:25:05 by maxisimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,47 +85,71 @@ int		check_connection(char *str)
 	return (connections == 6 || connections == 8);
 }
 
-int		counts(char *str)
+int		counts(char *str, int count)
 {
-	int		i[5];
+	int i;
+	int blocs;
 
-	ft_bzero(i, sizeof(int) * 5);
-	while (str[i[1]])
-		i[1]++;
-	i[1] = i[1] / 21;
-	while (str[i[0]++])
+	blocs = 0;
+	i = 0;
+	while (i < 20)
 	{
-		i[2] = str[i[0]] == '.' ? i[2] + 1 : i[2];
-		i[3] = str[i[0]] == '#' ? i[3] + 1 : i[3];
-		i[4] = str[i[0]] == '\n' ? i[4] + 1 : i[4];
+		if (i % 5 < 4)
+		{
+			if (!(str[i] == '#' || str[i] == '.'))
+				return (1);
+			if (str[i] == '#' && ++blocs > 4)
+				return (1);
+		}
+		else if (str[i] != '\n')
+			return (1);
+		i++;
 	}
-	i[0] = 0;
-	while (i[0] < i[1])
-	{
-		if (!((i[2] == 12 * i[1]) && (i[3] == 4 * i[1]) && (i[4] == 5 * i[1]) &&
-					str[5 + i[0] * 21] == '\n' && str[10 + i[0] * 21] == '\n'
-					&& str[15 + i[0] * 21] == '\n' && str[20 + i[0] * 21]
-					== '\n' && str[21 + i[0] * 21] == '\n'))
-			return (0);
-		i[0]++;
-	}
-	return (1);
+	if (count == 21 && str[20] != '\n')
+		return (1);
+	if (!check_connection(str))
+		return (1);
+	return (0);
 }
+/*int		i[5];
+
+  ft_bzero(i, sizeof(int) * 5);
+  while (str[i[1]])
+  i[1]++;
+  i[1] = i[1] / 21;
+  while (str[i[0]++])
+  {
+  i[2] = str[i[0]] == '.' ? i[2] + 1 : i[2];
+  i[3] = str[i[0]] == '#' ? i[3] + 1 : i[3];
+  i[4] = str[i[0]] == '\n' ? i[4] + 1 : i[4];
+  }
+  i[0] = 0;
+  while (i[0] < i[1])
+  {
+  if (!((i[2] == 12 * i[1]) && (i[3] == 4 * i[1]) && (i[4] == 5 * i[1]) &&
+  str[5 + i[0] * 21] == '\n' && str[10 + i[0] * 21] == '\n'
+  && str[15 + i[0] * 21] == '\n' && str[20 + i[0] * 21]
+  == '\n' && str[21 + i[0] * 21] == '\n'))
+  return (0);
+  i[0]++;
+  }
+  return (1);*/
 
 t_list	*read_tetri(int fd)
 {
 	int		count;
-	char	buf[21];
+	char	*buf;
 	char	lettre;
 	t_list	*list;
 	t_etris	*tetris;
 
+	buf = ft_strnew(21);
 	list = NULL;
 	lettre = 'A';
 	while ((count = read(fd, buf, 21)) >= 20)
 	{
 		tetris = get_piece(buf, lettre++);
-		if (counts(buf) != 1 || (tetris == NULL))
+		if (counts(buf, count) != 0 || (tetris == NULL))
 		{
 			ft_memdel((void **)&buf);
 			return (free_list(list));
@@ -133,6 +157,7 @@ t_list	*read_tetri(int fd)
 		ft_lstadd(&list, ft_lstnew(tetris, sizeof(t_etris)));
 		ft_memdel((void **)&tetris);
 	}
+	ft_memdel((void *)&buf);
 	if (count != 0)
 		return (free_list(list));
 	ft_lstrev(&list);

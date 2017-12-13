@@ -6,7 +6,7 @@
 /*   By: maxisimo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 17:19:23 by maxisimo          #+#    #+#             */
-/*   Updated: 2017/12/10 15:16:10 by maxisimo         ###   ########.fr       */
+/*   Updated: 2017/12/13 13:12:18 by maxisimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_point			*new_point(int x, int y);
 
 int				check_connection(char *str);
 int				main(int argc, char **argv);
-int				counts(char *str);
+int				counts(char *str, int count);
 int				place(t_etris *tetri, t_map *map, int x, int y);
 int				solve_map(t_map *map, t_list *list);
 int				ft_sqrt(int n);
