@@ -42,7 +42,7 @@ void	free_tetris(t_etris *tetri)
 	ft_memdel((void **)&tetri);
 }
 
-t_etris	*new_tetri(char **pos, int width, int height, char value)
+t_etris	*new_tetri(char **pos, int width, int height, char val)
 {
 	t_etris	*tetris;
 
@@ -50,7 +50,7 @@ t_etris	*new_tetri(char **pos, int width, int height, char value)
 	tetris->pos = pos;
 	tetris->width = width;
 	tetris->height = height;
-	tetris->value = value;
+	tetris->val = val;
 	return (tetris);
 }
 
