@@ -100,6 +100,6 @@ int		placement(t_etris *tetri, t_map *map, int x, int y)
 		}
 		i++;
 	}
-	set_piece(tetri, map, new_point(x, y), tetri->value);
+	set_piece(tetri, map, new_point(x, y), tetri->val);
 	return (1);
 }
