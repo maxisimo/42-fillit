@@ -27,7 +27,7 @@ int		solve_map(t_map *map, t_list *list)
 		x = 0;
 		while (x < map->size - tetri->width + 1)
 		{
-			if (place(tetri, map, x, y))
+			if (placement(tetri, map, x, y))
 			{
 				if (solve_map(map, list->next))
 					return (1);
